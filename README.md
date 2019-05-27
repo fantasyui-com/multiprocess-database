@@ -30,3 +30,25 @@ const {meta, data} = await mp.del("users", "alice");
 const databases = await mp.dir(); 
 
 ```
+
+## Document Structure
+
+```ES6
+{
+
+  meta: {
+       uuid: '50b55281-adb2-46d0-85d0-d8a80dcc6b92',
+       user: '07791d11-125b-43f7-ad27-694bb7f10a48',
+    inherit: ['User', 'Authenticated', 'Animal'],
+       tags: ['red', 'green', 'blue'],
+    version: '132-0677083e-5edd-4e4d-8e67-388c479fec51',
+      order: '0000001-c9dc5f89-b4ef-4e5b-a736-0caa9c3d0f57',
+    deleted: false,
+  },
+
+  data: {
+      'text': 'Buy Socks'
+  }
+
+}
+```
