@@ -6,28 +6,36 @@ Upgrade over UND with a cleaner API, written with import/export in mind.
 ## Programmer Friendly API
 
 ```ES6
+
 const mp = require('multiprocess-database');
 
 // Ensure database existence (create if does not exist, otherwise continue)
-const usersDb = await mp.ensure('users', {cleanup:true});
+const {created, existed, cleaned} = await mp.ensure('users', {cleanup:true});
 
+```
+
+### Document Structure
+
+```ES6
+
+// CREATE, DELETE, UPDATE
 // Upsert, Insert or update document with id alice
-const {meta, data} = await mp.set("users", "alice", {name:'alice'});
+const {meta, data} = await mp.set("users", "alice", {deleted:false}, {name:'alice'});
 
+// GET
 // Get data from document with id alice
+// NOTE: you must check if meta.deleted is true
 const {meta, data} = await mp.get("users", "alice");
 
+// CHECK
 // Check if document with id alice exists
-const {meta, data} = await mp.has("users", "alice");
+// NOTE: you must check if data is defined
+const {meta, data} = await mp.get("users", "alice");
 
+// ALL
 // Get all documents from database users
 const {meta, data} = await mp.all("users");
 
-// Delete, or do nothing if does not exist
-const {meta, data} = await mp.del("users", "alice");
-
-// Enumerate available databases
-const databases = await mp.dir(); 
 
 ```
 
