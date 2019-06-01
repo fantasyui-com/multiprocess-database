@@ -10,7 +10,7 @@ Upgrade over UND with a cleaner API, written with import/export in mind.
 const mp = require('multiprocess-database');
 
 // Ensure database existence (create if does not exist, otherwise continue)
-const {created, existed, cleaned} = await mp.ensure('users', {cleanup:true});
+const {meta} = await mp.ensure('users', {cleanup:true});
 
 ```
 
@@ -44,6 +44,7 @@ const {meta, data} = await mp.all("users");
 ```ES6
 {
 
+  // Database Data
   meta: {
        uuid: '50b55281-adb2-46d0-85d0-d8a80dcc6b92',
        user: '07791d11-125b-43f7-ad27-694bb7f10a48',
@@ -54,6 +55,7 @@ const {meta, data} = await mp.all("users");
     deleted: false,
   },
 
+  // User Data
   data: {
       'text': 'Buy Socks'
   }
