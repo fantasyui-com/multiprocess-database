@@ -31,32 +31,32 @@ const {meta} = await mp.ensure('users', {cleanup:true});
 
 // CREATE, DELETE, UPDATE
 
-// Upsert (Insert or Update) document with id alice.
+// Upsert (Insert or Update) object with id alice.
 const {meta, data} = await mp.set("users", "alice", {name:'alice'}, {deleted:false}); // also undeleted if previously deleted
 
-// Upsert (Insert or Update) a field, merge objects.
+// Upsert (Insert or Update) a property, merge objects.
 const {meta, data} = await mp.set("users", "alice", {email:'alice@example.com'});
 
 // GET
-// Get data from document with id alice.
+// Get values from object with id alice.
 // NOTE: you must check if meta.deleted is true
 const {meta, data} = await mp.get("users", "alice");
 
 // CHECK
-// Check if document with id alice exists.
+// Check if object with id alice exists.
 // NOTE: you must check if data is defined
 const {meta, data} = await mp.get("users", "alice");
 
 // ALL
-// Get all documents from database users.
+// Get all objects from database users.
 const allArray = await mp.all("users");
 
 // FIND
-// Get matching documents from database users.
+// Get matching objects from database users.
 const matchingArray = await mp.all("users").filter({meta} => meta.deleted);
 const matchingArray = await mp.all("users").filter({meta} => !meta.deleted);
 
-// Finding all aol users (note you must first filter out deleted documents)
+// Finding all aol users (note you must first filter out deleted objects)
 const matchingArray = await mp.all("users")
   .filter({meta} => !meta.deleted)
   .filter({data} => data.email.includes('@aol.com'));
