@@ -3,6 +3,13 @@ Multiprocess safe JSON database with conflict detection.
 
 Upgrade over UND with a cleaner API, written with import/export in mind.
 
+## Dictionary
+
+Database: Stores Objects (ex. Mongo, Maria, MySQL)
+Object: Entry in Database (ex. UserAlice, Row, Document)
+Property: Property of Object (ex. userEmail, Object Property, SQL Field, Excell Cell)
+Value: Value of Property (ex. alice@aol.com, Cell Value)
+
 ## Programmer Friendly API
 
 ```ES6
@@ -19,27 +26,40 @@ const {meta} = await mp.ensure('users', {cleanup:true});
 ```ES6
 
 // CREATE, DELETE, UPDATE
-// Upsert, Insert or update document with id alice
-const {meta, data} = await mp.set("users", "alice", {deleted:false}, {name:'alice'});
+
+// Upsert (Insert or Update) document with id alice.
+const {meta, data} = await mp.set("users", "alice", {name:'alice'}, {deleted:false}); // also undeleted if previously deleted
+
+// Upsert (Insert or Update) a field, merge objects.
+const {meta, data} = await mp.set("users", "alice", {email:'alice@example.com'});
 
 // GET
-// Get data from document with id alice
+// Get data from document with id alice.
 // NOTE: you must check if meta.deleted is true
 const {meta, data} = await mp.get("users", "alice");
 
 // CHECK
-// Check if document with id alice exists
+// Check if document with id alice exists.
 // NOTE: you must check if data is defined
 const {meta, data} = await mp.get("users", "alice");
 
 // ALL
-// Get all documents from database users
-const {meta, data} = await mp.all("users");
+// Get all documents from database users.
+const allArray = await mp.all("users");
 
+// FIND
+// Get matching documents from database users.
+const matchingArray = await mp.all("users").filter({meta} => meta.deleted);
+const matchingArray = await mp.all("users").filter({meta} => !meta.deleted);
+
+// Finding all aol users (note you must first filter out deleted documents)
+const matchingArray = await mp.all("users")
+  .filter({meta} => !meta.deleted)
+  .filter({data} => data.email.includes('@aol.com'));
 
 ```
 
-## Document Structure
+## Object Structure
 
 ```ES6
 {
