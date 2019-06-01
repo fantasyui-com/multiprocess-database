@@ -20,9 +20,6 @@ Value of Property (ex. alice@aol.com, Cell Value)
 
 const mp = require('multiprocess-database');
 
-// Ensure database existence (create if does not exist, otherwise continue)
-const {meta} = await mp.ensure('users', {cleanup:true});
-
 ```
 
 ### API Overview
@@ -85,4 +82,12 @@ const matchingArray = await mp.all("users")
   }
 
 }
+```
+
+## Todo
+
+Move ensure into chain of operations
+```ES6
+// Ensure database existence (create if does not exist, otherwise continue)
+const {meta} = await mp.ensure('users', {cleanup:true});
 ```
