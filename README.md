@@ -25,7 +25,7 @@ const {meta} = await mp.ensure('users', {cleanup:true});
 
 ```
 
-### Document Structure
+### API Overview
 
 ```ES6
 
