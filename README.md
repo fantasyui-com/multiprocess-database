@@ -3,12 +3,16 @@ Multiprocess safe JSON database with conflict detection.
 
 Upgrade over UND with a cleaner API, written with import/export in mind.
 
-## Dictionary
+## Dictionary of Terms
 
-Database: Stores Objects (ex. Mongo, Maria, MySQL)
-Object: Entry in Database (ex. UserAlice, Row, Document)
-Property: Property of Object (ex. userEmail, Object Property, SQL Field, Excell Cell)
-Value: Value of Property (ex. alice@aol.com, Cell Value)
+### Database
+Stores Objects (ex. Mongo, Maria, MySQL)
+### Object
+Entry in Database (ex. UserAlice, Row, Document)
+### Property
+Property of Object (ex. userEmail, Object Property, SQL Field, Excell Cell)
+### Value
+Value of Property (ex. alice@aol.com, Cell Value)
 
 ## Programmer Friendly API
 
