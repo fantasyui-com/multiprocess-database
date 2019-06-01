@@ -95,3 +95,40 @@ Move ensure into chain of operations
 // Ensure database existence (create if does not exist, otherwise continue)
 const {meta} = await mp.ensure('users', {cleanup:true});
 ```
+
+### Developer Notes
+
+## File Storage Strategy
+
+```ES6
+
+const file = makeFilename(object);
+
+// Check if the file exists in the current directory, and if it is writable.
+fs.access(file, fs.constants.F_OK | fs.constants.W_OK, (err) => {
+  if (err) {
+    console.error(
+      `${file} ${err.code === 'ENOENT' ? 'does not exist' : 'is read-only'}`);
+  } else {
+    console.log(`${file} exists, and it is writable`);
+  }
+});
+
+```
+
+
+```ES6
+fs.open('myfile', 'wx', (err, fd) => {
+  if (err) {
+    if (err.code === 'EEXIST') {
+      console.error('myfile already exists');
+      return;
+    }
+
+    throw err;
+  }
+
+  writeMyData(fd);
+});
+
+```
